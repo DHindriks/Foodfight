@@ -31,7 +31,7 @@ public class CameraScript : MonoBehaviour
         MainCamera = gameObject.GetComponentInChildren<Camera>();
         SetcamPos();
         ChangeZoom();
-        GameManager.Instance.cameraScript = this;
+        //GameManager.Instance.cameraScript = this;
     }
 
     public void SetTarget(GameObject Target)

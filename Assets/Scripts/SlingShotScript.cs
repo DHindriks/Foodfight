@@ -14,7 +14,7 @@ public class SlingShotScript : MonoBehaviour
     public Camera cam;
 
     [SerializeField]
-    bool StartSlingShot = false;
+    bool CanGrab = false;
 
     bool IsShot = false;
 
@@ -32,11 +32,6 @@ public class SlingShotScript : MonoBehaviour
         if (cam == null)
         {
             cam = Camera.main;
-        }
-
-        if (StartSlingShot)
-        {
-            GameManager.Instance.MainSlingshot = this;
         }
 
         preview = GetComponent<TrajectoryPreview>();
@@ -98,7 +93,10 @@ public class SlingShotScript : MonoBehaviour
             {
                 ballRB.GetComponent<AbilityBase>().AbilityLocked = false;
             }
-            GameManager.Instance.cameraScript.SetTarget(ballRB.gameObject);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.cameraScript.SetTarget(ballRB.gameObject);
+            }
             ballRB = null;
             Currentcooldown = Time.time + 1.5f;
 
@@ -114,7 +112,10 @@ public class SlingShotScript : MonoBehaviour
         if (ballRB == null)
         {
             GameObject NewProjectile = Instantiate(Prefab);
-            GameManager.Instance.CurrentLevel.ShotsFired++;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CurrentLevel.ShotsFired++;
+            }
             if (NewProjectile.GetComponent<Rigidbody>())
             {
                 SetProjectile(NewProjectile.GetComponent<Rigidbody>());
@@ -127,7 +128,7 @@ public class SlingShotScript : MonoBehaviour
 
     void SetProjectile (Rigidbody rb)
     {
-        if (rb.gameObject == GameManager.Instance.cameraScript.FollowTarget || 0 == 0)
+        if (GameManager.Instance != null && rb.gameObject == GameManager.Instance.cameraScript.FollowTarget || 0 == 0)
         {
             //GameManager.Instance.cameraScript.SetTarget(gameObject);
         }
@@ -143,7 +144,7 @@ public class SlingShotScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Rigidbody>() && ballRB == null && Currentcooldown < Time.time && !StartSlingShot)
+        if (other.gameObject.GetComponent<Rigidbody>() && ballRB == null && Currentcooldown < Time.time && CanGrab)
         {
             SetProjectile(other.gameObject.GetComponent<Rigidbody>());
         }    

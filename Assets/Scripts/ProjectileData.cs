@@ -21,22 +21,4 @@ public class ProjectileData : MonoBehaviour
         }
 
     }
-
-    void Update()
-    {
-        if (!HasReset && Vector3.Distance(GameManager.Instance.cameraScript.LevelCenter.transform.position, transform.position) > 75)
-        {
-            GameManager.Instance.cameraScript.ResetCam();
-            HasReset = true;
-        }    
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
-        if (rb && rb.velocity.magnitude < 5 && !HasReset)
-        {
-            GameManager.Instance.cameraScript.Invoke("ResetCam", 1);
-            HasReset = true;
-        }
-    }
 }

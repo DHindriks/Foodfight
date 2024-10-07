@@ -4,8 +4,11 @@ using UnityEngine.UI;
 
 public class ProjectileSelector : MonoBehaviour
 {
+    [SerializeField] SlingShotScript Slingshot;
+
     [SerializeField]
     List<GameObject> ProjectileList;
+
 
     [SerializeField]
     List<GameObject> ProjectileDBGList;
@@ -37,7 +40,7 @@ public class ProjectileSelector : MonoBehaviour
             GameObject Btn = Instantiate(Button, transform);
             Btn.GetComponent<Image>().sprite = Projectile.GetComponent<ProjectileData>().Icon;
             Btn.GetComponent<Button>().onClick.AddListener(delegate { ToggleWindow(); });
-            Btn.GetComponent<Button>().onClick.AddListener(delegate { GameManager.Instance.MainSlingshot.SpawnProjectile(Projectile); });
+            Btn.GetComponent<Button>().onClick.AddListener(delegate { Slingshot.SpawnProjectile(Projectile); });
         }
 
         if (DBG)
@@ -47,7 +50,7 @@ public class ProjectileSelector : MonoBehaviour
                 GameObject Btn = Instantiate(Button, transform);
                 Btn.GetComponent<Image>().sprite = Projectile.GetComponent<ProjectileData>().Icon;
                 Btn.GetComponent<Button>().onClick.AddListener(delegate { ToggleWindow(); });
-                Btn.GetComponent<Button>().onClick.AddListener(delegate { GameManager.Instance.MainSlingshot.SpawnProjectile(Projectile); });
+                Btn.GetComponent<Button>().onClick.AddListener(delegate { Slingshot.SpawnProjectile(Projectile); });
             }
         }
     }
