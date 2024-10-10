@@ -19,7 +19,7 @@ public class ProjectileSelector : MonoBehaviour
     [SerializeField]
     GameObject Button;
 
-    Animator animator;
+    [SerializeField]Animator animator;
 
     void Start()
     {
@@ -31,6 +31,11 @@ public class ProjectileSelector : MonoBehaviour
     public void ToggleWindow()
     {
         animator.SetBool("Open", !animator.GetBool("Open"));
+    }
+
+    public void SetWindowState(bool open)
+    {
+        animator.SetBool("Open", open);
     }
 
     void GenerateList()

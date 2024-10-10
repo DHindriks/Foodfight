@@ -17,17 +17,19 @@ public class AbilityExplode : AbilityBase
     [SerializeField]
     int Delay = 0;
 
+    bool Exploded = false;
+
     bool exploding = false;
-    void Update()
-    {
-        if (!AbilityLocked && Input.GetKeyDown(KeyCode.Mouse0) && !exploding)
+    void OnCollisionEnter(Collision collision)
+{
+        if (!AbilityLocked && !exploding && !Exploded)
         {
             exploding = true;
-            GetComponent<Rigidbody>().isKinematic = true;
+            //GetComponent<Rigidbody>().isKinematic = true;
             GameObject Particle = Instantiate(ParticlePrefab);
             Particle.transform.position = transform.position;
             Invoke("Explode", Delay);
-            GameManager.Instance.cameraScript.Invoke("ResetCam", Delay / 2);
+            //GameManager.Instance.cameraScript.Invoke("ResetCam", Delay / 2);
         }
     }
 
@@ -43,7 +45,7 @@ public class AbilityExplode : AbilityBase
             }
 
         }
-        Destroy(gameObject);
+        Exploded = true;
     }
 
 }

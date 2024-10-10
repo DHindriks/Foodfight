@@ -10,6 +10,9 @@ public class ProjectileData : MonoBehaviour
 
     Rigidbody rb;
     bool HasReset = false;
+
+    [SerializeField] SpriteRenderer sprite;
+
     private void Start()
     {
         if (GetComponent<Rigidbody>())
@@ -20,5 +23,14 @@ public class ProjectileData : MonoBehaviour
             Debug.LogWarning("Could not find rigidbody on this object: " + gameObject.name);
         }
 
+    }
+
+    [ExecuteInEditMode]
+    private void OnValidate()
+    {
+        if (sprite != null)
+        {
+            sprite.sprite = Icon;
+        }
     }
 }

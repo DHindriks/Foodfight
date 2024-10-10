@@ -22,6 +22,8 @@ public class SlingShotScript : MonoBehaviour
 
     TrajectoryPreview preview;
 
+    [SerializeField] TurnManager turnManager;
+
     float currentlayer;
 
     float Layer;
@@ -104,6 +106,7 @@ public class SlingShotScript : MonoBehaviour
             {
                 preview.enabled = false;
             }
+            turnManager.SwapTurn();
         }
     }
 
